@@ -331,8 +331,15 @@ class NodeList(UserList, GenericNodesUtils):
 
     @classmethod
     def from_fst(klass, node_list, parent=None, on_attribute=None):
-        return klass(map(lambda x: Node.from_fst(x, parent=parent, on_attribute=on_attribute), node_list),
-                     parent=parent, on_attribute=on_attribute)
+        # return klass(map(lambda x: Node.from_fst(x, parent=parent, on_attribute=on_attribute), node_list),
+        #             parent=parent, on_attribute=on_attribute)
+        try:
+            return klass(map(lambda x: Node.from_fst(x, parent=parent, on_attribute=on_attribute), node_list),
+                         parent=parent, on_attribute=on_attribute)
+        except:
+            return klass(map(lambda x: Node.from_fst(x, parent=parent, on_attribute=on_attribute), node_list[0]),
+                         parent=parent, on_attribute=on_attribute)
+
 
     def find(self, identifier, *args, **kwargs):
         for i in self.data:
